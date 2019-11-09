@@ -4,18 +4,16 @@ const morgan = require("morgan");
 const colors = require("colors");
 
 const connrctDb = require("./utils/connectDb");
-
 // Route files
 const bootcamps = require("./routes/bootcamps");
-
 // Load env vars
 dotenv.config({ path: "config.env" });
-
 // Connect to database
 connrctDb();
 
 const app = express();
-
+// Body parser
+app.use(express.json());
 // Dev logging middleware
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
