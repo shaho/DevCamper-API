@@ -3,14 +3,18 @@ const dotenv = require("dotenv");
 const morgan = require("morgan");
 const colors = require("colors");
 
-const connrctDb = require("./utils/connectDb");
+// Error handle middleware
+const errorHandler = require("./middleware/error");
+// DB Connection
+const connectDb = require("./utils/connectDb");
 // Route files
 const bootcamps = require("./routes/bootcamps");
 // Load env vars
 dotenv.config({ path: "config.env" });
 // Connect to database
-connrctDb();
+connectDb();
 
+// ─── EXPRESS ────────────────────────────────────────────────────────────────────
 const app = express();
 // Body parser
 app.use(express.json());
@@ -18,10 +22,12 @@ app.use(express.json());
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
-
 // Mount routers
 app.use("/api/v1/bootcamps", bootcamps);
 
+app.use(errorHandler);
+
+// ─── SPIN UP ────────────────────────────────────────────────────────────────────
 const PORT = process.env.PORT || 5000;
 const server = app.listen(
   PORT,
