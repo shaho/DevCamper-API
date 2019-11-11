@@ -7,7 +7,6 @@ const connectDb = async () => {
     console.log("Using existing connection".rainbow);
     return;
   }
-
   const db = await mongoose.connect(process.env.MONGO_URI, {
     useCreateIndex: true,
     useFindAndModify: false,
