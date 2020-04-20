@@ -1,3 +1,3 @@
 # DevCamper API
 
-DevCamper backend API with Node.js and Mongoose
+"DevCamper project" backend API with Node.js and Mongoose
